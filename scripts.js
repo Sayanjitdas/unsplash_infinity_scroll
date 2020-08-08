@@ -5,10 +5,10 @@ let ready = false;
 let loadedImg = 0;
 let totalImg = 0;
 
-//unsplash API
+//unsplash ACCESS KEY
 const accessKey = `2saqVwIZqVxd8DB2dORZ7xy94YBnPNV8gxjzuxHpYLQ`;
-const count = 30;
-const uri = `https://api.unsplash.com/photos/random/?client_id=${accessKey}&count=${count}`;
+let count = 3;
+
 
 
 //helper function to set Attributes
@@ -21,11 +21,14 @@ function setAttr(elem,attrs){
 //check all images are loaded
 function imageloaded(){ 
     console.log('image loaded..')
-    loadedImg++
+    loadedImg++;
     if(loadedImg === totalImg){
         ready = true;
         loader.hidden = true;
-        console.log("ready = ",ready);
+        count = 30;
+
+        // console.log("ready = ",ready);
+
     }
 }
 
@@ -84,7 +87,8 @@ window.addEventListener('scroll',function(){
 
 //Get images from unsplash
 async function getPhotos(){
-    try{    
+    try{   
+        const uri = `https://api.unsplash.com/photos/random/?client_id=${accessKey}&count=${count}`; 
         const response = await fetch(uri);
         const data = await response.json();
         displayPhotos(data);
